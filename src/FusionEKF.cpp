@@ -89,6 +89,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   /*****************************************************************************
    *  Prediction
    ****************************************************************************/
+
 	//compute the time elapsed between the current and previous measurements
   float sigma_ax = 9;
   float sigma_ay = 9;

@@ -15,4 +15,4 @@ public:
   Eigen::VectorXd gt_values_;
 };
 
-#endif /* MEASUREMENT_PACKAGE_H_ */
+#endif /* GROUND_TRUTH_PACKAGE_H_ */
