@@ -3,32 +3,51 @@
 
 # # Loading Visualization
 
-# In[2]:
+# In[28]:
 
 import plotly.offline as py
 from plotly.graph_objs import *
 import pandas as pd
 import math
-import matplotlib.pyplot as plt
 py.init_notebook_mode()
 
 my_cols=['px_est','py_est','vx_est','vy_est','px_meas','py_meas','px_gt','py_gt','vx_gt','vy_gt']
 with open('./build/output-1.txt') as f:
-    table_ekf_output = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
+    table_ekf_output1 = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
+    
+with open('./build/output-2.txt') as f:
+    table_ekf_output2 = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
 
 #estimations
-trace1 = Scatter(
-    x=table_ekf_output['px_est'],
-    y=table_ekf_output['py_est'],
+trace11 = Scatter(
+    x=table_ekf_output1['px_est'],
+    y=table_ekf_output1['py_est'],
     xaxis='x2',
     yaxis='y2',
-    name='KF- Estimate'
+    name='EKF-Estimate'
+)
+#estimations
+trace12 = Scatter(
+    x=table_ekf_output2['px_est'],
+    y=table_ekf_output2['py_est'],
+    xaxis='x2',
+    yaxis='y2',
+    name='EKF-Estimate'
 )
 
 #Measurements
-trace2 = Scatter(
-    x=table_ekf_output['px_meas'],
-    y=table_ekf_output['py_meas'],
+trace21 = Scatter(
+    x=table_ekf_output1['px_meas'],
+    y=table_ekf_output1['py_meas'],
+    xaxis='x2',
+    yaxis='y2',
+    name = 'Measurements',
+    mode = 'markers'
+)
+#Measurements
+trace22 = Scatter(
+    x=table_ekf_output2['px_meas'],
+    y=table_ekf_output2['py_meas'],
     xaxis='x2',
     yaxis='y2',
     name = 'Measurements',
@@ -36,30 +55,39 @@ trace2 = Scatter(
 )
 
 #Measurements
-trace3 = Scatter(
-    x=table_ekf_output['px_gt'],
-    y=table_ekf_output['py_gt'],
+trace31 = Scatter(
+    x=table_ekf_output1['px_gt'],
+    y=table_ekf_output1['py_gt'],
+    xaxis='x2',
+    yaxis='y2',
+    name = 'Ground Truth'
+)
+#Measurements
+trace32 = Scatter(
+    x=table_ekf_output2['px_gt'],
+    y=table_ekf_output2['py_gt'],
     xaxis='x2',
     yaxis='y2',
     name = 'Ground Truth'
 )
 
-data = [trace1, trace2, trace3]
+data1 = [trace11, trace21, trace31]
+data2 = [trace12, trace22, trace32]
 
 layout = Layout(
     xaxis2=dict(
-
+   
         anchor='x2',
         title='px'
     ),
     yaxis2=dict(
-
+    
         anchor='y2',
         title='py'
     )
 )
 
-fig = Figure(data=data, layout=layout)
-py.iplot(fig, filename= 'EKF')
-#plt.plot(fig)
-#plt.show()
+fig1 = Figure(data=data1, layout=layout)
+fig2 = Figure(data=data2, layout=layout)
+py.plot(fig1, filename= 'EKF_data1')
+py.plot(fig2, filename= 'EKF_data2')
