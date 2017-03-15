@@ -12,10 +12,10 @@ import math
 py.init_notebook_mode()
 
 my_cols=['px_est','py_est','vx_est','vy_est','px_meas','py_meas','px_gt','py_gt','vx_gt','vy_gt']
-with open('./build/output-1.txt') as f:
+with open('./output-1.txt') as f:
     table_ekf_output1 = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
     
-with open('./build/output-2.txt') as f:
+with open('./output-2.txt') as f:
     table_ekf_output2 = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
 
 #estimations
@@ -89,5 +89,5 @@ layout = Layout(
 
 fig1 = Figure(data=data1, layout=layout)
 fig2 = Figure(data=data2, layout=layout)
-py.plot(fig1, filename= 'EKF_data1')
-py.plot(fig2, filename= 'EKF_data2')
+py.plot(fig1, filename= 'EKF_data1.html')
+py.plot(fig2, filename= 'EKF_data2.html')
