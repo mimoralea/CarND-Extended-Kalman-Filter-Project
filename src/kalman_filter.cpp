@@ -45,12 +45,12 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   float vx = x_[2];
   float vy = x_[3];
 
-  float ro = sqrt(px*px + py*py);
+  float rho = sqrt(px*px + py*py);
   float phi = atan(py/px);
-  float ro_dot = (px*vx + py*vy)/sqrt(px*px + py*py);
+  float rho_dot = (px*vx + py*vy)/sqrt(px*px + py*py);
 
   VectorXd z_pred = VectorXd(3);
-  z_pred << ro, phi, ro_dot;
+  z_pred << rho, phi, rho_dot;
   VectorXd y = z - z_pred;
 
   MatrixXd Ht = H_.transpose();

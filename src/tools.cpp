@@ -44,8 +44,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float px2_p_py2 = px * px + py * py;
 
   if(fabs(px2_p_py2) < 0.0001) {
-    cout << "ERROR: Division by zero" << endl;
-    return Hj;
+    throw 1;
   }
 
   Hj(0, 0) = px / sqrt(px2_p_py2);
