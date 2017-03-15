@@ -56,7 +56,6 @@ FusionEKF::~FusionEKF() {}
 
 void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
-
   /*****************************************************************************
    *  Initialization
    ****************************************************************************/
@@ -82,10 +81,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     }
 
     ekf_.x_ << px, py, vx, vy;
-
-    if(px == 0 or py == 0) {
-      return;
-    }
 
     previous_timestamp_ = measurement_pack.timestamp_;
     is_initialized_ = true;
