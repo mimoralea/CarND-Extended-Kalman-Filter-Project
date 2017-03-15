@@ -28,8 +28,9 @@ FusionEKF::FusionEKF() {
   H_laser_ = MatrixXd(2, 4);
   H_laser_ << 1, 0, 0, 0,
               0, 1, 0, 0;
-
   // H_radar is the Jacobian or x_
+
+  sigma_ax = 9, sigma_ay = 9;
 
 	//create a 4D state vector, we don't know yet the values of the x state
 	ekf_.x_ = VectorXd(4);
@@ -47,7 +48,6 @@ FusionEKF::FusionEKF() {
              0, 1, 0, 1,
              0, 0, 1, 0,
              0, 0, 0, 1;
-  sigma_ax = 9, sigma_ay = 9;
 }
 
 /**
