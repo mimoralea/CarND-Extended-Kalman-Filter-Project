@@ -8,36 +8,36 @@ using Eigen::MatrixXd;
 class KalmanFilter {
 public:
 
-  // state vector
-  VectorXd x_;
+        // state vector
+        VectorXd x_;
 
-  // state covariance matrix
-  MatrixXd P_;
+        // state covariance matrix
+        MatrixXd P_;
 
-  // state transistion matrix
-  MatrixXd F_;
+        // state transistion matrix
+        MatrixXd F_;
 
-  // process covariance matrix
-  MatrixXd Q_;
+        // process covariance matrix
+        MatrixXd Q_;
 
-  // measurement matrix
-  MatrixXd H_;
+        // measurement matrix
+        MatrixXd H_;
 
-  // measurement covariance matrix
-  MatrixXd R_;
+        // measurement covariance matrix
+        MatrixXd R_;
 
-  KalmanFilter();
-  virtual ~KalmanFilter();
+        KalmanFilter();
+        virtual ~KalmanFilter();
 
-  void Predict();
-  void Update(const VectorXd &z,
-              const VectorXd &z_pred);
+        void Predict();
+        void Update(const VectorXd &z,
+                    const VectorXd &z_pred);
 
-  VectorXd PrepareForLaserUpdate();
-  VectorXd PrepareForRadarUpdate();
+        VectorXd PrepareForLaserUpdate();
+        VectorXd PrepareForRadarUpdate();
 
- private:
-  MatrixXd CalculateKalmanGain();
+private:
+        MatrixXd CalculateKalmanGain();
 };
 
 #endif /* KALMAN_FILTER_H_ */

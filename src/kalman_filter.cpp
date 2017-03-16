@@ -14,9 +14,9 @@ KalmanFilter::~KalmanFilter() {}
  * previous iteration
  */
 void KalmanFilter::Predict() {
-  x_ = F_ * x_;
-  MatrixXd Ft = F_.transpose();
-  P_ = F_ * P_ * Ft + Q_;
+        x_ = F_ * x_;
+        MatrixXd Ft = F_.transpose();
+        P_ = F_ * P_ * Ft + Q_;
 }
 
 /**
@@ -25,12 +25,12 @@ void KalmanFilter::Predict() {
  * we get from the positions and velocities
  */
 MatrixXd KalmanFilter::CalculateKalmanGain() {
-  MatrixXd Ht = H_.transpose();
-  MatrixXd S = H_ * P_ * Ht + R_;
-  MatrixXd Si = S.inverse();
-  MatrixXd PHt = P_ * Ht;
-  MatrixXd K = PHt * Si;
-  return K;
+        MatrixXd Ht = H_.transpose();
+        MatrixXd S = H_ * P_ * Ht + R_;
+        MatrixXd Si = S.inverse();
+        MatrixXd PHt = P_ * Ht;
+        MatrixXd K = PHt * Si;
+        return K;
 }
 
 /**
@@ -40,21 +40,21 @@ MatrixXd KalmanFilter::CalculateKalmanGain() {
  */
 void KalmanFilter::Update(const VectorXd &z, const VectorXd &z_pred) {
 
-  // calculate Kalman Gain
-  MatrixXd K = CalculateKalmanGain();
+        // calculate Kalman Gain
+        MatrixXd K = CalculateKalmanGain();
 
-  // predicted error
-  VectorXd y = z - z_pred;
+        // predicted error
+        VectorXd y = z - z_pred;
 
-  // calculate new state matrix
-  // using Kalman gain to adjust
-  // for uncertainty
-  x_ = x_ + (K * y);
-  long x_size = x_.size();
-  MatrixXd I = MatrixXd::Identity(x_size, x_size);
+        // calculate new state matrix
+        // using Kalman gain to adjust
+        // for uncertainty
+        x_ = x_ + (K * y);
+        long x_size = x_.size();
+        MatrixXd I = MatrixXd::Identity(x_size, x_size);
 
-  // Finally update the state covariance matrix
-  P_ = (I - K * H_) * P_;
+        // Finally update the state covariance matrix
+        P_ = (I - K * H_) * P_;
 }
 
 /**
@@ -62,10 +62,10 @@ void KalmanFilter::Update(const VectorXd &z, const VectorXd &z_pred) {
  */
 VectorXd KalmanFilter::PrepareForLaserUpdate() {
 
-  // calculate predicted value
-  // by only using the H matrix
-  VectorXd z_pred = H_ * x_;
-  return z_pred;
+        // calculate predicted value
+        // by only using the H matrix
+        VectorXd z_pred = H_ * x_;
+        return z_pred;
 }
 
 /**
@@ -73,16 +73,16 @@ VectorXd KalmanFilter::PrepareForLaserUpdate() {
  */
 VectorXd KalmanFilter::PrepareForRadarUpdate() {
 
-  // extract the raw values from the state
-  float px = x_[0], py = x_[1], vx = x_[2], vy = x_[3];
+        // extract the raw values from the state
+        float px = x_[0], py = x_[1], vx = x_[2], vy = x_[3];
 
-  // convert Cartesian back to Polar
-  float range = sqrt(px*px + py*py);
-  float bearing = atan(py/px);
-  float range_rate = (px*vx + py*vy)/sqrt(px*px + py*py);
+        // convert Cartesian back to Polar
+        float range = sqrt(px*px + py*py);
+        float bearing = atan(py/px);
+        float range_rate = (px*vx + py*vy)/sqrt(px*px + py*py);
 
-  // predicted state vector
-  VectorXd z_pred = VectorXd(3);
-  z_pred << range, bearing, range_rate;
-  return z_pred;
+        // predicted state vector
+        VectorXd z_pred = VectorXd(3);
+        z_pred << range, bearing, range_rate;
+        return z_pred;
 }
