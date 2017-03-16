@@ -1,10 +1,3 @@
-
-# coding: utf-8
-
-# # Loading Visualization
-
-# In[28]:
-
 import plotly.offline as py
 from plotly.graph_objs import *
 import pandas as pd
@@ -14,7 +7,7 @@ py.init_notebook_mode()
 my_cols=['px_est','py_est','vx_est','vy_est','px_meas','py_meas','px_gt','py_gt','vx_gt','vy_gt']
 with open('./output-1.txt') as f:
     table_ekf_output1 = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
-    
+
 with open('./output-2.txt') as f:
     table_ekf_output2 = pd.read_table(f, sep='\t', header=None, names=my_cols, lineterminator='\n')
 
@@ -76,12 +69,12 @@ data2 = [trace12, trace22, trace32]
 
 layout = Layout(
     xaxis2=dict(
-   
+
         anchor='x2',
         title='px'
     ),
     yaxis2=dict(
-    
+
         anchor='y2',
         title='py'
     )

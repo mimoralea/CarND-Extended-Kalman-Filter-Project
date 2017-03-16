@@ -33,6 +33,11 @@ MatrixXd KalmanFilter::CalculateKalmanGain() {
   return K;
 }
 
+/**
+ * Core update function that works regardless
+ * of the sensor type that is being
+ * currently evaluated
+ */
 void KalmanFilter::Update(const VectorXd &z, const VectorXd &z_pred) {
 
   // calculate Kalman Gain

@@ -13,18 +13,14 @@ using Eigen::MatrixXd;
 
 class FusionEKF {
 public:
-  FusionEKF();
-  virtual ~FusionEKF();
-  void ProcessMeasurement(const MeasurementPackage &measurement_pack);
   KalmanFilter ekf_;
 
+  FusionEKF();
+  virtual ~FusionEKF();
+
+  void ProcessMeasurement(const MeasurementPackage &measurement_pack);
+
 private:
-  void Init(const MeasurementPackage &measurement_pack);
-
-  void ProcessStateTransMatrix(const float dt);
-  void ProcessCovarianceMatrix(const float dt);
-  float ProcessTimestamp(const long timestamp);
-
   bool is_initialized_;
   long previous_timestamp_;
   float sigma_ax, sigma_ay;
@@ -33,6 +29,12 @@ private:
   MatrixXd R_laser_;
   MatrixXd R_radar_;
   MatrixXd H_laser_;
+
+  void Init(const MeasurementPackage &measurement_pack);
+
+  void ProcessStateTransMatrix(const float dt);
+  void ProcessCovarianceMatrix(const float dt);
+  float ProcessTimestamp(const long timestamp);
 };
 
 #endif /* FusionEKF_H_ */
