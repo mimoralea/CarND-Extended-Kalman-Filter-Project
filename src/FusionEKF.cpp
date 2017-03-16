@@ -69,16 +69,18 @@ void FusionEKF::Init(const MeasurementPackage &measurement_pack) {
 
     // extract the RADAR measurements and convert from
     // Polar to Cartesian coordinates
-    float rho = measurement_pack.raw_measurements_[0];
-    float phi = measurement_pack.raw_measurements_[1];
-    float rho_dot = measurement_pack.raw_measurements_[2];
+    float range = measurement_pack.raw_measurements_[0];
+    float bearing = measurement_pack.raw_measurements_[1];
+    float range_rate = measurement_pack.raw_measurements_[2];
 
-    px = rho * cos(phi);
-    py = rho * sin(phi);
-    vx = rho_dot * cos(phi);
-    vy = rho_dot * sin(phi);
+    // calculate position and velocity
+    px = range * cos(bearing);
+    py = range * sin(bearing);
+    vx = range_rate * cos(bearing);
+    vy = range_rate * sin(bearing);
     // note that we are using the velocity measurements on this
     // because radar can measure velocity (unlike laser)
+
   } else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
 
     // if it is laser, just grab the raw x, y coordinates

@@ -72,12 +72,12 @@ VectorXd KalmanFilter::PrepareForRadarUpdate() {
   float px = x_[0], py = x_[1], vx = x_[2], vy = x_[3];
 
   // convert Cartesian back to Polar
-  float rho = sqrt(px*px + py*py);
-  float phi = atan(py/px);
-  float rho_dot = (px*vx + py*vy)/sqrt(px*px + py*py);
+  float range = sqrt(px*px + py*py);
+  float bearing = atan(py/px);
+  float range_rate = (px*vx + py*vy)/sqrt(px*px + py*py);
 
   // predicted state vector
   VectorXd z_pred = VectorXd(3);
-  z_pred << rho, phi, rho_dot;
+  z_pred << range, bearing, range_rate;
   return z_pred;
 }
