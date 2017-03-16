@@ -30,13 +30,14 @@ public:
   virtual ~KalmanFilter();
 
   void Predict();
-  void PrepareForLaserUpdate(const Eigen::VectorXd &z);
-  void PrepareForRadarUpdate(const Eigen::VectorXd &z);
-  void Update();
+  void Update(const VectorXd &z,
+              const VectorXd &z_pred);
+
+  VectorXd PrepareForLaserUpdate();
+  VectorXd PrepareForRadarUpdate();
 
  private:
-  VectorXd z_;
-  VectorXd z_pred_;
+  MatrixXd CalculateKalmanGain();
 };
 
 #endif /* KALMAN_FILTER_H_ */
